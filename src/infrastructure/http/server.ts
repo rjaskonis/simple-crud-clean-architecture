@@ -14,14 +14,23 @@ dotenv.config();
 if (inProduction) moduleAlias();
 
 import express, { Application } from "express";
-import routes from "@http/routes";
+import compression from "compression";
+// import bodyParser from "body-parser";
+import favicon from "serve-favicon";
+import { usuarioRouter } from "@http/routes";
+import { InMemoryAdapter } from "@data/adapters/in-memory";
 
 const app: Application = express();
 const PORT_NUMBER = process.env.API_PORT_NUMBER;
 const PUBLIC_PATH = path.resolve("public");
 
+app.use(compression({ threshold: 0, filter: () => true }));
+app.use(express.urlencoded({ limit: "100mb", extended: true }));
+app.use(express.json({ limit: "100mb" }));
 app.use(express.static(PUBLIC_PATH));
+app.use(favicon(path.join("public", "media", "favicon.ico")));
+app.use(usuarioRouter);
 
-app.use(routes);
+app.set("DATABASE_REPOSITORY", new InMemoryAdapter());
 
 app.listen(PORT_NUMBER, () => console.log(`*Server listening on port ${PORT_NUMBER}*`));

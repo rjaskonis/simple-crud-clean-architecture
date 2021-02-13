@@ -7,7 +7,7 @@ export interface Interactor {
 
     findById: (id: number | string) => Promise<any>;
 
-    store: (data: Interactor.Data) => Promise<void>;
+    store: (data: Entity | Interactor.Data | any) => Promise<void>;
 }
 
 export namespace Interactor {

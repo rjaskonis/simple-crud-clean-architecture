@@ -1,3 +1,4 @@
+import { Entity } from "@/domain/entity";
 import { Interactor } from "@domain/interactor";
 
 export interface Repository {
@@ -7,7 +8,7 @@ export interface Repository {
 
     read?: (path: string) => Promise<any>;
 
-    store?: (param: Interactor.Data | string) => Promise<any>;
+    store?: (param: Entity | Interactor.Data) => Promise<any>;
 
     findAll?: () => Promise<Array<any>>;
 

@@ -18,7 +18,7 @@ export class UserInteractor implements Interactor {
 
     async findById(id: number | string): Promise<User | undefined> {
         if (this.repository.findOne) {
-            const user: User = await this.repository.findOne((user: User) => user.id === id);
+            const user: User = await this.repository.findOne((user: User) => user.id == id);
 
             return user;
         }
