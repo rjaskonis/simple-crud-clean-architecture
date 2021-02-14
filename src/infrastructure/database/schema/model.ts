@@ -8,11 +8,11 @@ export class SchemaModel {
             this.modelName,
             {
                 ...this.structure,
-                _deleted: {
-                    type: DataTypes.BOOLEAN,
-                    allowNull: true,
-                    defaultValue: false,
-                },
+                // _deleted: {
+                //     type: DataTypes.BOOLEAN,
+                //     allowNull: true,
+                //     defaultValue: false,
+                // },
             },
             {
                 tableName: this.tableName,

@@ -30,9 +30,9 @@ export class UsuarioInteractor implements Interactor {
         } else return [];
     }
 
-    async findById(id: number | string): Promise<Usuario | undefined> {
+    async findOne(param: any): Promise<Usuario | undefined> {
         if (this.repository.findOne) {
-            const Usuario: Usuario = await this.repository.findOne((usuario: Usuario) => usuario.id == id);
+            const Usuario: Usuario = await this.repository.findOne(param);
 
             return Usuario;
         }

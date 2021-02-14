@@ -5,7 +5,7 @@ export interface Interactor {
 
     findAll: () => Promise<Array<Entity>>;
 
-    findById: (id: number | string) => Promise<any>;
+    findOne: (param: any) => Promise<any>;
 
     store: (data: Entity | Interactor.Data | any) => Promise<void>;
 }

@@ -1,7 +1,7 @@
 import { SequelizeAdapter } from "@/data/adapters/sequelize";
 import settings from "@infrastructure/database/instances/settings";
 import userSchemaModel from "@infrastructure/database/schema/models/user";
-import { Sequelize } from "sequelize/types";
+import { Sequelize } from "sequelize";
 
 async function syncDatabaseStructure() {
     const databaseSettings: object = settings["db-local"];
