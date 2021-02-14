@@ -10,7 +10,7 @@ dotenv.config();
 // const srcPath = path.resolve(__dirname, "..", "..", "..", "src", "index.js");
 // const stylesPath = path.resolve(__dirname, "..", "..", "..", "src", "styles");
 const jsPath = path.resolve(__dirname, "public", "js");
-const srcPath = path.resolve(__dirname, "src", "ui", "index.js");
+const srcPath = path.resolve(__dirname, "src", "presentation", "web", "index.js");
 
 module.exports = {
     devServer: {
