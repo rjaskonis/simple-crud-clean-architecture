@@ -8,7 +8,7 @@ dotenv.config();
 // const node_modulesPath = path.resolve(__dirname, "..", "..", "..", "node_modules");
 // // const publicPath = path.resolve(__dirname, '..', '..', '..', 'public');
 // const srcPath = path.resolve(__dirname, "..", "..", "..", "src", "index.js");
-// const stylesPath = path.resolve(__dirname, "..", "..", "..", "src", "styles");
+const stylesPath = path.resolve(__dirname, "src", "presentation", "web", "styles");
 const jsPath = path.resolve(__dirname, "public", "js");
 const srcPath = path.resolve(__dirname, "src", "presentation", "web", "index.js");
 
@@ -57,35 +57,34 @@ module.exports = {
                     },
                 ],
             },
-            // { test: /\.css$/i, use: ["to-string-loader", "css-loader"] },
-            // // { test: /\.css$/, loader: "style-loader!css-loader" },
-            // {
-            //     test: /\.scss$/,
-            //     use: [
-            //         { loader: "style-loader" },
-            //         { loader: "css-loader" },
-            //         {
-            //             loader: "sass-loader",
-            //             options: {
-            //                 /* this alone doesn't seem to work. Hence 'LoaderOptionsPlugin' must be defined */
-            //                 includePaths: [stylesPath],
-            //             },
-            //         },
-            //     ],
-            // },
-            // {
-            //     test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-            //     use: [
-            //         {
-            //             loader: "file-loader",
-            //             options: {
-            //                 name: "[name].[ext]",
-            //                 outputPath: "../fonts",
-            //                 publicPath: "/fonts",
-            //             },
-            //         },
-            //     ],
-            // },
+            { test: /\.css$/i, use: ["to-string-loader", "css-loader"] },
+            // { test: /\.css$/, loader: "style-loader!css-loader" },
+            {
+                test: /\.scss$/,
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" },
+                    {
+                        loader: "postcss-loader", // Run post css actions
+                    },
+                    {
+                        loader: "sass-loader",
+                    },
+                ],
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {
+                            name: "[name].[ext]",
+                            outputPath: "../fonts",
+                            publicPath: "/fonts",
+                        },
+                    },
+                ],
+            },
         ],
     },
     plugins: [
