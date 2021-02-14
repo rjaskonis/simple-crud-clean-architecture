@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import { addUsuario, findAllUsuarios, findUsuarioById } from "@http/controllers/usuario";
 
 const router = Router();

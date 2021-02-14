@@ -17,7 +17,7 @@ import express, { Application } from "express";
 import compression from "compression";
 // import bodyParser from "body-parser";
 import favicon from "serve-favicon";
-import { usuarioRouter } from "@http/routes";
+import { authenticationRouter, usuarioRouter } from "@http/routes";
 import { InMemoryAdapter } from "@data/adapters/in-memory";
 
 const app: Application = express();
@@ -29,8 +29,10 @@ app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use(express.json({ limit: "100mb" }));
 app.use(express.static(PUBLIC_PATH));
 app.use(favicon(path.join("public", "media", "favicon.ico")));
+app.use(authenticationRouter);
 app.use(usuarioRouter);
 
 app.set("DATABASE_REPOSITORY", new InMemoryAdapter());
+app.set("SUPERSECRET_KEY", process.env.SUPERSECRET_KEY || "jb007");
 
 app.listen(PORT_NUMBER, () => console.log(`*Server listening on port ${PORT_NUMBER}*`));

@@ -1,15 +1,17 @@
-import { User } from "@domain/entities/user";
+import { Model, ModelCtor, Sequelize } from "sequelize";
 import { Usuario } from "@domain/entities/usuario";
-import { Interactor } from "@domain/interactor";
-import { UserInteractor } from "@domain/usecases/user.interactor";
 import { UsuarioInteractor } from "@domain/usecases/usuario.interactor";
 import { SequelizeAdapter } from "@data/adapters/sequelize";
-import { InMemoryAdapter } from "@/data/adapters/in-memory";
+import { InMemoryAdapter } from "@data/adapters/in-memory";
+import settings from "@infrastructure/database/instances/settings";
+import userSchemaModel from "@infrastructure/database/schema/models/user";
 
 async function run() {
     const sleep = (timeout: number) => new Promise((resolve) => setTimeout(() => resolve(null), timeout));
-    // const repository: SequelizeAdapter = new SequelizeAdapter();
-    const repository: InMemoryAdapter = new InMemoryAdapter();
+    const databaseSettings: object = settings["db-local"];
+    const databaseConnection = new Sequelize(databaseSettings);
+    const repository: SequelizeAdapter = new SequelizeAdapter(databaseConnection, userSchemaModel);
+    // const repository: InMemoryAdapter = new InMemoryAdapter();
 
     // const interactor: UserInteractor = new UserInteractor(repository);
 

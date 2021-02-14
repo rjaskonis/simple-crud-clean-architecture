@@ -1,5 +1,5 @@
-import { Sequelize, DataTypes } from "sequelize/types";
-import { defineModel } from "@infrastructure/database/define-model";
+import { Sequelize, DataTypes } from "sequelize";
+import { SchemaModel } from "@infrastructure/database/schema/model";
 
 const tableName = "users";
 const modelName = tableName;
@@ -11,4 +11,6 @@ const structure = {
     },
 };
 
-module.exports = { bind: (sequelize: Sequelize) => defineModel(sequelize, modelName, tableName, structure) };
+const schemaModel: SchemaModel = new SchemaModel(modelName, tableName, structure);
+
+export default schemaModel;
