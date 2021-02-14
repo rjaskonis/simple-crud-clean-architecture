@@ -1,4 +1,5 @@
-import React from "react";
+import "utils/sum-try-catch";
+import "utils/sleep";
 import { render } from "react-dom";
 import App from "./App";
 

@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-// const node_modulesPath = path.resolve(__dirname, "..", "..", "..", "node_modules");
+const node_modulesPath = path.resolve(__dirname, "node_modules");
 // // const publicPath = path.resolve(__dirname, '..', '..', '..', 'public');
 // const srcPath = path.resolve(__dirname, "..", "..", "..", "src", "index.js");
 const stylesPath = path.resolve(__dirname, "src", "presentation", "web", "styles");
@@ -107,21 +107,16 @@ module.exports = {
         // }),
     ],
     mode: "development",
-    // resolve: {
-    //     extensions: [".js"],
-    //     modules: [node_modulesPath],
-    //     alias: {
-    //         app: path.resolve("./src"),
-    //         api: path.resolve("./src/api"),
-    //         actions: path.resolve("./src/actions"),
-    //         events: path.resolve("./src/events"),
-    //         containers: path.resolve("./src/containers"),
-    //         components: path.resolve("./src/components"),
-    //         hocs: path.resolve("./src/hocs"),
-    //         hooks: path.resolve("./src/hooks"),
-    //         styles: path.resolve("./src/styles"),
-    //         utils: path.resolve("./src/utils"),
-    //         "react-dom": "@hot-loader/react-dom",
-    //     },
-    // },
+    resolve: {
+        extensions: [".js"],
+        modules: [node_modulesPath],
+        alias: {
+            app: path.resolve("./src/presentation/web"),
+            api: path.resolve("./src/presentation/web/api"),
+            containers: path.resolve("./src/containers"),
+            components: path.resolve("./src/components"),
+            utils: path.resolve("./src/presentation/web/utils"),
+            "react-dom": "@hot-loader/react-dom",
+        },
+    },
 };
