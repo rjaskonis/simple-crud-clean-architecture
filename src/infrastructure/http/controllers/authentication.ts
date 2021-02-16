@@ -6,7 +6,7 @@ let interactor: any;
 export async function validateCredentials(req: Request, res: Response) {
     const credentials = req.body;
 
-    if (credentials.username === "admin" && credentials.senha === "123") {
+    if (credentials.username === "admin" && credentials.senha === "#adm.007!") {
         const token = jwt.sign({ authenticated: true }, req.app.get("SUPERSECRET_KEY"), { expiresIn: "8h" });
         const decodedToken: any = jwt.decode(token);
 

@@ -5,7 +5,7 @@ import http from "api/http";
 function Login({ history }) {
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState({});
-    const [credential, setCredential] = useState({});
+    const [credential, setCredential] = useState({ username: "admin", senha: "#adm.007!" });
 
     async function authenticate() {
         setIsLoading(true);
