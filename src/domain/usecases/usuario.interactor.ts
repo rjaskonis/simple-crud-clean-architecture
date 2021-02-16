@@ -6,17 +6,28 @@ import Cypher from "@data/cryptography/cypher";
 export class UsuarioInteractor implements Interactor {
     constructor(private readonly repository: Repository) {}
 
-    private async generateHashPassword(password: string, rounds: number): Promise<string> {
+    private async encryptPassword(password: string, rounds: number): Promise<string> {
         let countedRounds: number = 0;
-        let finalHash: string | null = null;
+        let wordToEncrypt: string = "";
+        let encryptedWord: string | null = null;
 
         while (countedRounds < rounds) {
-            finalHash = await Cypher.encrypt(finalHash || password);
+            wordToEncrypt += password;
 
             countedRounds++;
         }
 
-        return finalHash || "";
+        encryptedWord = await Cypher.encrypt(wordToEncrypt, process.env.CRYPTO_KEY || "X-dev#01");
+
+        return encryptedWord || "";
+    }
+
+    public async decryptPassword(password: string, indexString: string): Promise<string> {
+        let decryptedWord: string | null = null;
+
+        decryptedWord = await Cypher.decrypt(password, process.env.CRYPTO_KEY || "X-dev#01");
+
+        return decryptedWord.slice(0, decryptedWord.indexOf(indexString));
     }
 
     async query(command: string): Promise<Array<Usuario>> {
@@ -40,7 +51,9 @@ export class UsuarioInteractor implements Interactor {
 
     async store(usuario: Usuario): Promise<any> {
         if (this.repository.store) {
-            const hashPassword = usuario.id ? usuario.senha : await this.generateHashPassword(usuario.senha + usuario.salt, 3);
+            console.log(usuario);
+
+            const hashPassword = usuario.id ? usuario.senha : await this.encryptPassword(usuario.senha + usuario.salt, 3);
 
             return this.repository.store({ ...usuario, senha: hashPassword });
         }

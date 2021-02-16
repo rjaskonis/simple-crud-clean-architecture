@@ -8,10 +8,23 @@ function Usuario({ history, match: { params } }) {
     const [message, setMessage] = useState({});
     const [usuario, setUsuario] = useState({});
     const [usuarios, setUsuarios] = useState([]);
-    const [loadUsuariosAPI, loadUsuarios] = useHttp(() => http.get("/api/usuarios"), setUsuarios);
+    const [loadUsuariosAPI, loadUsuarios] = useHttp(
+        () => http.get("/api/usuarios"),
+        (usuarios) => (usuarios.constructor === Array ? setUsuarios(usuarios) : null)
+    );
     const [loadUsuarioAPI, loadUsuario] = useHttp((id) => http.get(`/api/usuarios/${id}`), setUsuario);
 
     async function registrarUsuario() {
+        if (!usuario.nome || !usuario.sobrenome || !usuario.username || !usuario.senha || !usuario.salt) {
+            setMessage({ show: true, type: "warning", text: "Certifique-se de ter preenchido todos os campos" });
+
+            await sleep(2500);
+
+            setMessage({ show: false });
+
+            return;
+        }
+
         setIsLoading(true);
 
         const { status, data } = await http.post("/api/usuarios", usuario);
@@ -62,11 +75,11 @@ function Usuario({ history, match: { params } }) {
 
         setMessage({ show: true, type: "warning", text: "Registro excluído" });
 
+        loadUsuarios();
+
         await sleep(2000);
 
         setMessage({ show: false });
-
-        loadUsuarios();
     }
 
     const handleChange = ({ target: { name, value } }) => setUsuario((usuario) => ({ ...usuario, [name]: value }));
@@ -95,11 +108,11 @@ function Usuario({ history, match: { params } }) {
                             </div>
                             <div class="form">
                                 <div class="form-group">
-                                    <label class="px-1">Nome</label>
+                                    <label class="px-1">Nome *</label>
                                     <input type="text" class="form-control" name="nome" value={usuario.nome || ""} onChange={handleChange} />
                                 </div>
                                 <div class="form-group">
-                                    <label class="px-1">Sobrenome</label>
+                                    <label class="px-1">Sobrenome *</label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -109,7 +122,7 @@ function Usuario({ history, match: { params } }) {
                                     />
                                 </div>
                                 <div class="form-group">
-                                    <label class="px-1">Nome de login do usuário</label>
+                                    <label class="px-1">Nome de login do usuário *</label>
                                     <input
                                         type="text"
                                         class="form-control"
@@ -119,7 +132,7 @@ function Usuario({ history, match: { params } }) {
                                     />
                                 </div>
                                 <div class="form-group">
-                                    <label class="px-1">Senha</label>
+                                    <label class="px-1">Senha *</label>
                                     <input
                                         type="password"
                                         class="form-control"
@@ -129,7 +142,7 @@ function Usuario({ history, match: { params } }) {
                                     />
                                 </div>
                                 <div class="form-group">
-                                    <label class="px-1">Salt</label>
+                                    <label class="px-1">Salt *</label>
                                     <input type="text" class="form-control" name="salt" value={usuario.salt || ""} onChange={handleChange} />
                                 </div>
                                 <div class="form-group">

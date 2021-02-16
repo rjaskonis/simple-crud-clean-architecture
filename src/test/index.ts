@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import { Model, ModelCtor, Sequelize } from "sequelize";
 import { Usuario } from "@domain/entities/usuario";
 import { UsuarioInteractor } from "@domain/usecases/usuario.interactor";
@@ -5,6 +6,9 @@ import { SequelizeAdapter } from "@data/adapters/sequelize";
 import { InMemoryAdapter } from "@data/adapters/in-memory";
 import settings from "@infrastructure/database/instances/settings";
 import usuarioSchemaModel from "@infrastructure/database/schema/models/usuario";
+import Cypher from "@data/cryptography/cypher";
+
+dotenv.config();
 
 async function run() {
     const sleep = (timeout: number) => new Promise((resolve) => setTimeout(() => resolve(null), timeout));
@@ -36,15 +40,17 @@ async function run() {
     // await interactor.store(yasmin);
 
     const usuarios: Array<Usuario> = await interactor.findAll();
-    const usuario = await interactor.findOne({ where: { id: 2 } });
+    const usuario = await interactor.findOne({ where: { id: 14 } });
 
-    if (usuario) {
-        usuario.sobrenome = "Marrichi Jaskonis";
-        interactor.store(usuario);
-    }
+    const d = await interactor.decryptPassword(usuario?.senha || "", usuario?.salt || "");
 
-    console.log(usuarios);
-    console.log(usuario);
+    // if (usuario) {
+    //     usuario.sobrenome = "Marrichi Jaskonis";
+    //     interactor.store(usuario);
+    // }
+
+    // console.log(usuarios);
+    console.log(d);
 }
 
 run();

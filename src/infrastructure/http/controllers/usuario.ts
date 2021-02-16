@@ -39,7 +39,7 @@ export async function storeUsuario(req: Request, res: Response) {
         const usuarioRegistrado = await interactor.store(
             usuario.id
                 ? { ...usuarioRegistrar, ...usuario }
-                : new Usuario(usuario.nome, usuario.sobrenome, usuario.username, usuario.salt, usuario)
+                : new Usuario(usuario.nome, usuario.sobrenome, usuario.username, usuario.salt, usuario.senha)
         );
 
         return res.json(usuarioRegistrado);
@@ -54,10 +54,7 @@ export async function deleteUsuario(req: Request, res: Response) {
     interactor = interactor || new UsuarioInteractor(repository);
 
     const usuario = req.body;
-
     const usuarioDeletar = await interactor.findOne({ where: { id: usuario.id } });
-
-    console.log(usuarioDeletar);
 
     if (!usuarioDeletar) {
         return res.sendStatus(400);

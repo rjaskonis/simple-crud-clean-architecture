@@ -15,9 +15,9 @@ if (inProduction) moduleAlias();
 
 import express, { Application } from "express";
 import compression from "compression";
-// import bodyParser from "body-parser";
 import favicon from "serve-favicon";
-import { uiRouter, authenticationRouter, usuarioRouter } from "@http/routes";
+import cookieParser from "cookie-parser";
+import { jwtRouter, authenticationRouter, uiRouter, usuarioRouter } from "@http/routes";
 import { InMemoryAdapter } from "@data/adapters/in-memory";
 import settings from "@infrastructure/database/instances/settings";
 import { Sequelize } from "sequelize";
@@ -28,10 +28,12 @@ const PUBLIC_PATH = path.resolve("public");
 
 app.use(compression({ threshold: 0, filter: () => true }));
 app.use(express.urlencoded({ limit: "100mb", extended: true }));
+app.use(cookieParser());
 app.use(express.json({ limit: "100mb" }));
 app.use(express.static(PUBLIC_PATH));
 app.use(favicon(path.join("public", "media", "favicon.ico")));
 app.use(authenticationRouter);
+app.use(jwtRouter);
 app.use(usuarioRouter);
 app.use(uiRouter);
 
