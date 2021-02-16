@@ -10,6 +10,8 @@ export interface Repository {
 
     store?: (param: Entity | Interactor.Data) => Promise<any>;
 
+    delete?: (param: Entity | Interactor.Data) => Promise<any>;
+
     findAll?: () => Promise<Array<any>>;
 
     findOne?: (lambda: any) => Promise<any>;

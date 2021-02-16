@@ -113,8 +113,9 @@ module.exports = {
         alias: {
             app: path.resolve("./src/presentation/web"),
             api: path.resolve("./src/presentation/web/api"),
-            containers: path.resolve("./src/containers"),
-            components: path.resolve("./src/components"),
+            containers: path.resolve("./src/presentation/web/containers"),
+            components: path.resolve("./src/presentation/web/components"),
+            hooks: path.resolve("./src/presentation/web/hooks"),
             utils: path.resolve("./src/presentation/web/utils"),
             "react-dom": "@hot-loader/react-dom",
         },

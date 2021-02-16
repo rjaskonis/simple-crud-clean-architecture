@@ -17,8 +17,10 @@ import express, { Application } from "express";
 import compression from "compression";
 // import bodyParser from "body-parser";
 import favicon from "serve-favicon";
-import { authenticationRouter, usuarioRouter } from "@http/routes";
+import { uiRouter, authenticationRouter, usuarioRouter } from "@http/routes";
 import { InMemoryAdapter } from "@data/adapters/in-memory";
+import settings from "@infrastructure/database/instances/settings";
+import { Sequelize } from "sequelize";
 
 const app: Application = express();
 const PORT_NUMBER = process.env.API_PORT_NUMBER;
@@ -31,8 +33,12 @@ app.use(express.static(PUBLIC_PATH));
 app.use(favicon(path.join("public", "media", "favicon.ico")));
 app.use(authenticationRouter);
 app.use(usuarioRouter);
+app.use(uiRouter);
 
-app.set("DATABASE_REPOSITORY", new InMemoryAdapter());
+const databaseSettings: object = settings["pdb"];
+const databaseConnection = new Sequelize(databaseSettings);
+
+app.set("DATABASE_CONNECTION", databaseConnection);
 app.set("SUPERSECRET_KEY", process.env.SUPERSECRET_KEY || "jb007");
 
 app.listen(PORT_NUMBER, () => console.log(`*Server listening on port ${PORT_NUMBER}*`));

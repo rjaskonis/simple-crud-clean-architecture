@@ -1,0 +1,56 @@
+.login-container {
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+    .login-form {
+        padding: 5%;
+
+        // @media (min-width: 768px) {
+        //     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+        // }
+
+        h2 {
+            color: #333;
+        }
+
+        h4 {
+            color: #535353;
+        }
+
+        .form {
+            padding: 10%;
+
+            label {
+                color: #093d75;
+            }
+
+            .btn-submit {
+                width: 100%;
+                border-radius: 1rem;
+                padding: 1.5%;
+                border: none;
+                font-weight: 600;
+                color: #fff;
+                background-color: #0062cc;
+                cursor: pointer;
+            }
+
+            .link-forget-password {
+                color: #0062cc;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            // .alert {
+            //     text-align: center;
+            //     width: 100%;
+            // }
+        }
+
+        .loading-gif {
+            position: fixed;
+            left: 0;
+            bottom: 5%;
+        }
+    }
+}

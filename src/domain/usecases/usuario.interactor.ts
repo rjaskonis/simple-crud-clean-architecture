@@ -40,9 +40,15 @@ export class UsuarioInteractor implements Interactor {
 
     async store(usuario: Usuario): Promise<any> {
         if (this.repository.store) {
-            const hashPassword = await this.generateHashPassword(usuario.senha + usuario.salt, 3);
+            const hashPassword = usuario.id ? usuario.senha : await this.generateHashPassword(usuario.senha + usuario.salt, 3);
 
             return this.repository.store({ ...usuario, senha: hashPassword });
+        }
+    }
+
+    async delete(usuario: Usuario): Promise<void> {
+        if (this.repository.delete) {
+            return this.repository.delete({ where: { id: usuario.id } });
         }
     }
 }

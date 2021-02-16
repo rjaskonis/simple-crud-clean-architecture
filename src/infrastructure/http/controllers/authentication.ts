@@ -16,5 +16,5 @@ export async function validateCredentials(req: Request, res: Response) {
         });
     }
 
-    return res.json({ message: true });
+    return res.sendStatus(403);
 }

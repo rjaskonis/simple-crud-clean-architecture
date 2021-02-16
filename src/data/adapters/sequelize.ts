@@ -30,4 +30,8 @@ export class SequelizeAdapter implements Repository {
             return this.model.create(data);
         }
     }
+
+    async delete(param: any): Promise<any> {
+        return this.model.destroy(param);
+    }
 }
