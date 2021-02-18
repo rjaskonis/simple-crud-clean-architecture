@@ -71,7 +71,8 @@
         "webpack-hot-middleware": "^2.25.0"
     },
     "scripts": {
-        "build": "tsc",
+        "build": "tsc && webpack",
+        "start": "node dist/infrastructure/http/server.js",
         "dev:database": "ts-node -r tsconfig-paths/register src/infrastructure/database/instances/postgres/build.ts",
         "dev:server": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --ignore-watch src/presentation --ignore-watch public src/infrastructure/http/server.ts",
         "dev:ui": "webpack serve",
@@ -79,17 +80,9 @@
     },
     "_moduleAliases": {
         "@": "dist",
-        "@domain": [
-            "dist/domain"
-        ],
-        "@data": [
-            "dist/data"
-        ],
-        "@infrastructure": [
-            "dist/infrastructure"
-        ],
-        "@http": [
-            "dist/infrastructure/http"
-        ]
+        "@domain": "dist/domain",
+        "@data": "dist/data",
+        "@infrastructure": "dist/infrastructure",
+        "@http": "dist/infrastructure/http"
     }
 }

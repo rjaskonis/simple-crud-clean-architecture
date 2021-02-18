@@ -65,9 +65,6 @@ module.exports = {
                     { loader: "style-loader" },
                     { loader: "css-loader" },
                     {
-                        loader: "postcss-loader", // Run post css actions
-                    },
-                    {
                         loader: "sass-loader",
                     },
                 ],

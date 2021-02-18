@@ -51,8 +51,6 @@ export class UsuarioInteractor implements Interactor {
 
     async store(usuario: Usuario): Promise<any> {
         if (this.repository.store) {
-            console.log(usuario);
-
             const hashPassword = usuario.id ? usuario.senha : await this.encryptPassword(usuario.senha + usuario.salt, 3);
 
             return this.repository.store({ ...usuario, senha: hashPassword });
